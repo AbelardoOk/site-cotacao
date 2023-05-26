@@ -8,8 +8,8 @@ export default function Home() {
         <div className="mt-20">
           {/* Parte cotação */}
 
-          <p className="text-2xl">1 Euro igual a</p>
-          <p className="text-2xl">5,35 Real Brasileiro</p>
+          <p className="text-2xl"><span>1</span> Euro igual a</p>
+          <p className="text-2xl"><span>5,35</span> Real Brasileiro</p>
 
           <div>
             <form>
@@ -18,7 +18,7 @@ export default function Home() {
                 <input className="w-[96px] h-[48px] bg-black rounded-l-[8px] text-center border-[#5AFB3A] border-l-2 border-t-2 border-b-2 placeholder-[#5AFB3A]"
                 type="text" id='valor' placeholder="Valor" />
 
-                <select className="bg-black text-center w-[160px] h-[48px] border-2 border-[#5AFB3A] mt-5"
+                <select className="bg-black text-center w-[160px] h-[48px] border-2 border-[#5AFB3A] mt-5 transition-max-height duration-300"
                  name="deMoeda" id="deMoeda">
 
                   <option value="">De</option>
