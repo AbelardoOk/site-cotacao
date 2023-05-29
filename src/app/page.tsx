@@ -8,8 +8,8 @@ export default function Home() {
         <div className="mt-20">
           {/* Parte cotação */}
 
-          <p className="text-2xl"><span>1</span> Euro igual a</p>
-          <p className="text-2xl"><span>5,35</span> Real Brasileiro</p>
+          <p className="text-2xl"><span id="qnt-md">1</span> <span id="md-atual">Euro</span> igual a</p>
+          <p className="text-2xl"><span id="cot-md">5,35</span> <span id="md-escolhida" >Real</span> Brasileiro</p>
 
           <div>
             <form>
@@ -45,6 +45,9 @@ export default function Home() {
         </div>
 
       </div>
+
+
+
     </main>
   )
 }
