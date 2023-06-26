@@ -1,3 +1,4 @@
+'use client'
 import axios from 'axios';
 import React from 'react';
 
@@ -61,7 +62,7 @@ import React from 'react';
           {/* Parte cotação */}
 
           <p className="text-2xl"><span id="qnt-md">{valor}</span> <span id="md-atual">{deMoeda}</span> igual a</p>
-          <p className="text-2xl"><span id="cot-md">{    paraMoeda    }</span> <span id="md-escolhida" >{paraMoeda}</span> Brasileiro</p>          
+          <p className="text-2xl"><span id="cot-md">{    paraMoeda    }</span> <span id="md-escolhida" >{paraMoeda}</span></p>          
           
           
           <div>
@@ -72,23 +73,23 @@ import React from 'react';
                 type="text" id='valor' placeholder="Valor" value={valor} onChange={(event) => setValor(event.target.value)}/>
 
                 <select className="bg-black text-center w-[160px] h-[48px] border-2 border-[#5AFB3A] mt-5 transition-max-height duration-300"
-                 name="deMoeda" id="deMoeda">
+                 name="deMoeda" id="deMoeda" value={deMoeda} onChange={(event) => setDeMoeda(event.target.value)}>
 
                   <option value="">De</option>
-                  <option value="USD">USD</option>
-                  <option value="EUR">EUR</option>
-                  <option value="BRL">BRL</option>
-                  <option value="IEN">IENE</option>
+                  <option value="Dólar Americano">USD</option>
+                  <option value="Euro">EUR</option>
+                  <option value="Real Brasileiro">BRL</option>
+                  <option value="Iene japonês">IENE</option>
                 </select>
 
                 <select className="bg-black rounded-r-[8px] text-center w-[160px] h-[48px] border-[#5AFB3A] border-r-2 border-t-2 border-b-2"
                  name="paraMoeda" id="deMoeda" value={paraMoeda} onChange={(event) => setParaMoeda(event.target.value)}>
 
                   <option value="">Para</option>
-                  <option value="USD">USD</option>
-                  <option value="EUR">EUR</option>
-                  <option value="BRL">BRL</option>
-                  <option value="IEN">IENE</option>
+                  <option value="Dólar Americano">USD</option>
+                  <option value="Euro">EUR</option>
+                  <option value="Real Brasileiro">BRL</option>
+                  <option value="Iene japonês">IENE</option>
                 </select>
 
               </div>
