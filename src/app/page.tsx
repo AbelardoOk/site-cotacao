@@ -1,12 +1,20 @@
 import axios from 'axios';
+import React from 'react';
 
   export default function Home() {
+    // React.useStatecria um estado inicial vazio com uma string vazia (''). O valor retornado é uma matriz de dois elementos: o estado atual
+    let [valor, setValor] = React.useState(''); 
+    let [paraMoeda, setParaMoeda] = React.useState(''); 
+    let [deMoeda, setDeMoeda] = React.useState('');
+    
+    
   const handleFormSubmit = async (event: { preventDefault: () => void; }) => {
     event.preventDefault();
+    
+    valor = (document.getElementById('valor') as HTMLInputElement).value;
 
-    const valor = (document.getElementById('valor') as HTMLInputElement).value;
-    const deMoeda = (document.getElementById('deMoeda') as HTMLSelectElement).value;
-    const paraMoeda = (document.getElementById('paraMoeda') as HTMLSelectElement).value;
+    deMoeda = (document.getElementById('deMoeda') as HTMLSelectElement).value;
+    paraMoeda = (document.getElementById('paraMoeda') as HTMLSelectElement).value;
 
     const quantidadeMoeda = document.getElementById('qnt-Md') as HTMLSpanElement;
     quantidadeMoeda.innerHTML = valor;
@@ -53,8 +61,8 @@ import axios from 'axios';
           {/* Parte cotação */}
 
           <p className="text-2xl"><span id="qnt-md">{valor}</span> <span id="md-atual">{deMoeda}</span> igual a</p>
-          <p className="text-2xl"><span id="cot-md">{    uyyyyyyy    }</span> <span id="md-escolhida" >{paraMoeda}</span> Brasileiro</p>
-
+          <p className="text-2xl"><span id="cot-md">{    paraMoeda    }</span> <span id="md-escolhida" >{paraMoeda}</span> Brasileiro</p>          
+          
           
           <div>
             <form onSubmit={handleFormSubmit}>
