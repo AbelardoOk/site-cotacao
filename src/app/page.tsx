@@ -1,53 +1,14 @@
 'use client'
 import axios from 'axios';
-import React from 'react';
+import React, { useEffect } from 'react';
+import { MostrarPreco } from '../components/cotacao';
 
   export default function Home() {
     // React.useStatecria um estado inicial vazio com uma string vazia (''). O valor retornado é uma matriz de dois elementos: o estado atual
-    let [valor, setValor] = React.useState(''); 
+    let [valor, setValor] = React.useState(); 
     let [paraMoeda, setParaMoeda] = React.useState(''); 
     let [deMoeda, setDeMoeda] = React.useState('');
-    
-    
-  const handleFormSubmit = async (event: { preventDefault: () => void; }) => {
-    event.preventDefault();
-    
-    valor = (document.getElementById('valor') as HTMLInputElement).value;
-
-    deMoeda = (document.getElementById('deMoeda') as HTMLSelectElement).value;
-    paraMoeda = (document.getElementById('paraMoeda') as HTMLSelectElement).value;
-
-    const quantidadeMoeda = document.getElementById('qnt-Md') as HTMLSpanElement;
-    quantidadeMoeda.innerHTML = valor;
-
-    const moedaAtual = document.getElementById('md-atual') as HTMLSpanElement;
-    moedaAtual.innerHTML = deMoeda;
-
-    const moedaEscolhida = document.getElementById('md-escolhida') as HTMLSpanElement;
-    moedaEscolhida.innerHTML = paraMoeda;
-
-    try {
-      const cotacaoMoeda = document.getElementById('cot-md') as HTMLSpanElement;
-      cotacaoMoeda.innerHTML = await cotacao(valor, deMoeda, paraMoeda);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-    const cotacao = async(valor: string, deMoeda: string, paraMoeda: string) => {
-      const apiKey = 'IXFYDMK9H9VON85P';
-      
-      try{
-      const response = await axios.get(`https://www.alphavantage.co/query?function=CURRENCY_EXCHANGE_RATE&from_currency=${deMoeda}&to_currency=${paraMoeda}&apikey=${apiKey}`);
-      const data = response.data['Realtime Currency Exchange Rate'];
-      const exchangeRate = data['5. Exchange Rate'];
-      const valorConvertido = parseFloat(exchangeRate) * parseFloat(valor);
-      return valorConvertido.toFixed(2);
-
-      } catch(error) {
-        throw error;
-      }
-    };
+    let [valConv, setValConv] = React.useState();
 
   return (
 
@@ -62,21 +23,28 @@ import React from 'react';
           {/* Parte cotação */}
 
           <p className="text-2xl"><span id="qnt-md">{valor}</span> <span id="md-atual">{deMoeda}</span> igual a</p>
-          <p className="text-2xl"><span id="cot-md">{    paraMoeda    }</span> <span id="md-escolhida" >{paraMoeda}</span></p>          
           
+          <MostrarPreco
+            valor={valor}
+            deMoeda={deMoeda}
+            paraMoeda={paraMoeda}
+          />
           
+          <p className="text-2xl"> {valConv} {paraMoeda}</p>          
+          
+          {/* Formulário */}
           <div>
-            <form onSubmit={handleFormSubmit}>
+            <form>
               <div>
 
                 <input className="w-[96px] h-[48px] bg-black rounded-l-[8px] text-center border-[#5AFB3A] border-l-2 border-t-2 border-b-2 placeholder-[#5AFB3A]"
-                type="text" id='valor' placeholder="Valor" value={valor} onChange={(event) => setValor(event.target.value)}/>
+                type="number" id='valor' placeholder="Valor" value={valor} onChange={(event) => setValor(event.target.value)}/>
 
                 <select className="bg-black text-center w-[160px] h-[48px] border-2 border-[#5AFB3A] mt-5 transition-max-height duration-300"
                  name="deMoeda" id="deMoeda" value={deMoeda} onChange={(event) => setDeMoeda(event.target.value)}>
 
                   <option value="">De</option>
-                  <option value="Dólar Americano">USD</option>
+                  <option defaultChecked value="Dólar Americano">USD</option>
                   <option value="Euro">EUR</option>
                   <option value="Real Brasileiro">BRL</option>
                   <option value="Iene japonês">IENE</option>
@@ -85,11 +53,11 @@ import React from 'react';
                 <select className="bg-black rounded-r-[8px] text-center w-[160px] h-[48px] border-[#5AFB3A] border-r-2 border-t-2 border-b-2"
                  name="paraMoeda" id="deMoeda" value={paraMoeda} onChange={(event) => setParaMoeda(event.target.value)}>
 
-                  <option value="">Para</option>
-                  <option value="Dólar Americano">USD</option>
-                  <option value="Euro">EUR</option>
-                  <option value="Real Brasileiro">BRL</option>
-                  <option value="Iene japonês">IENE</option>
+                  <option value="nd">Para</option>
+                  <option value="USD">USD</option>
+                  <option value="EUR">EUR</option>
+                  <option value="BRL">BRL</option>
+                  <option value="IENE">IENE</option>
                 </select>
 
               </div>
