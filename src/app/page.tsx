@@ -1,14 +1,13 @@
 'use client'
-import axios from 'axios';
+
 import React, { useEffect } from 'react';
 import { MostrarPreco } from '../components/cotacao';
 
   export default function Home() {
     // React.useStatecria um estado inicial vazio com uma string vazia (''). O valor retornado é uma matriz de dois elementos: o estado atual
-    let [valor, setValor] = React.useState(); 
-    let [paraMoeda, setParaMoeda] = React.useState(''); 
-    let [deMoeda, setDeMoeda] = React.useState('');
-    let [valConv, setValConv] = React.useState();
+    let [valor, setValor] = React.useState<number>(0); 
+    let [paraMoeda, setParaMoeda] = React.useState('USD'); 
+    let [deMoeda, setDeMoeda] = React.useState('BRL');
 
   return (
 
@@ -30,30 +29,26 @@ import { MostrarPreco } from '../components/cotacao';
             paraMoeda={paraMoeda}
           />
           
-          <p className="text-2xl"> {valConv} {paraMoeda}</p>          
-          
           {/* Formulário */}
           <div>
             <form>
               <div>
 
                 <input className="w-[96px] h-[48px] bg-black rounded-l-[8px] text-center border-[#5AFB3A] border-l-2 border-t-2 border-b-2 placeholder-[#5AFB3A]"
-                type="number" id='valor' placeholder="Valor" value={valor} onChange={(event) => setValor(event.target.value)}/>
+                type="number" id='valor' placeholder="Valor" value={valor} onChange={(event) => setValor(parseInt(event.target.value, 10))}/>
 
                 <select className="bg-black text-center w-[160px] h-[48px] border-2 border-[#5AFB3A] mt-5 transition-max-height duration-300"
                  name="deMoeda" id="deMoeda" value={deMoeda} onChange={(event) => setDeMoeda(event.target.value)}>
 
-                  <option value="">De</option>
-                  <option defaultChecked value="Dólar Americano">USD</option>
-                  <option value="Euro">EUR</option>
                   <option value="Real Brasileiro">BRL</option>
+                  <option value="Dólar Americano">USD</option>
+                  <option value="Euro">EUR</option>
                   <option value="Iene japonês">IENE</option>
                 </select>
 
                 <select className="bg-black rounded-r-[8px] text-center w-[160px] h-[48px] border-[#5AFB3A] border-r-2 border-t-2 border-b-2"
                  name="paraMoeda" id="deMoeda" value={paraMoeda} onChange={(event) => setParaMoeda(event.target.value)}>
 
-                  <option value="nd">Para</option>
                   <option value="USD">USD</option>
                   <option value="EUR">EUR</option>
                   <option value="BRL">BRL</option>
