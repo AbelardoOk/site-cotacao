@@ -1,7 +1,7 @@
 'use client'
 
-import React, { useEffect } from 'react';
-import { MostrarPreco } from '../components/cotacao';
+import React, { useState } from 'react';
+import { MostrarPreco, MostrarMoeda } from '../components/cotacao';
 
   export default function Home() {
     // React.useStatecria um estado inicial vazio com uma string vazia (''). O valor retornado é uma matriz de dois elementos: o estado atual
@@ -20,9 +20,12 @@ import { MostrarPreco } from '../components/cotacao';
       
         <div className="mt-20">
           {/* Parte cotação */}
+    
+          <MostrarMoeda
+            valor={valor}
+            deMoeda={deMoeda}
+          />
 
-          <p className="text-2xl"><span id="qnt-md">{valor}</span> <span id="md-atual">{deMoeda}</span> igual a</p>
-          
           <MostrarPreco
             valor={valor}
             deMoeda={deMoeda}
@@ -40,19 +43,17 @@ import { MostrarPreco } from '../components/cotacao';
                 <select className="bg-black text-center w-[160px] h-[48px] border-2 border-[#5AFB3A] mt-5 transition-max-height duration-300"
                  name="deMoeda" id="deMoeda" value={deMoeda} onChange={(event) => setDeMoeda(event.target.value)}>
 
-                  <option value="Real Brasileiro">BRL</option>
-                  <option value="Dólar Americano">USD</option>
-                  <option value="Euro">EUR</option>
-                  <option value="Iene japonês">IENE</option>
+                  <option value="BRL">BRL</option>
+                  <option value="USD">USD</option>
+                  <option value="EUR">EUR</option>
                 </select>
 
                 <select className="bg-black rounded-r-[8px] text-center w-[160px] h-[48px] border-[#5AFB3A] border-r-2 border-t-2 border-b-2"
-                 name="paraMoeda" id="deMoeda" value={paraMoeda} onChange={(event) => setParaMoeda(event.target.value)}>
+                 name="paraMoeda" id="paraMoeda" value={paraMoeda} onChange={(event) => setParaMoeda(event.target.value)}>
 
                   <option value="USD">USD</option>
                   <option value="EUR">EUR</option>
                   <option value="BRL">BRL</option>
-                  <option value="IENE">IENE</option>
                 </select>
 
               </div>

@@ -14,11 +14,44 @@ useEffect(() => {
 
     const obterValorConvertido = async (valor: number, deMoeda: string, paraMoeda: string) => {
       try {
-        const response = await axios.get(`https://api.exchangerate-api.com/v4/latest/${deMoeda}`);
-        const exchangeRate = response.data.rates;
-    
-        const convercao = valor * (exchangeRate[paraMoeda] / exchangeRate[deMoeda])
-        setValorConv(convercao)
+
+        switch (deMoeda) {
+          case 'BRL':
+            const responseBR = await axios.get(`https://api.exchangerate-api.com/v4/latest/BRL`);
+            const exchangeRateBr = responseBR.data.rates;
+
+            const convercaoBr = valor * (exchangeRateBr[paraMoeda] / exchangeRateBr['BRL'])
+            setValorConv(convercaoBr)
+            break;
+        
+          case 'USD':
+            const responseUs = await axios.get(`https://api.exchangerate-api.com/v4/latest/USD`);
+            const exchangeRateUs = responseUs.data.rates;
+
+            const convercaoUs = valor * (exchangeRateUs[paraMoeda] / exchangeRateUs['USD'])
+            setValorConv(convercaoUs)
+            break;
+
+          case 'EUR':
+            const responseEur = await axios.get(`https://api.exchangerate-api.com/v4/latest/EUR`);
+            const exchangeRateEur = responseEur.data.rates;
+  
+            const convercaoEur = valor * (exchangeRateEur[paraMoeda] / exchangeRateEur['EUR'])
+            setValorConv(convercaoEur)
+            break;
+
+          default:
+            break;
+        }
+
+        // const response = await axios.get(`https://api.exchangerate-api.com/v4/latest/${deMoeda}`);
+        // const exchangeRate = response.data.rates;
+
+        // if(deMoeda == 'USD' || deMoeda == "EUR") {document.title = deMoeda}
+        // if(paraMoeda == 'USD' || paraMoeda == "EUR") {document.title = paraMoeda}
+
+        // const convercao = valor * (exchangeRate[paraMoeda] / exchangeRate[deMoeda])
+        // setValorConv(convercao)
 
       } catch (error) {
         console.error('Erro ao converter moedas: ', error);
@@ -26,6 +59,7 @@ useEffect(() => {
       }
     }
 
+    document.title = deMoeda
     obterValorConvertido(valor, deMoeda, paraMoeda)
 
   } catch(error) {
@@ -36,53 +70,49 @@ useEffect(() => {
 
   const nomeMoeda = (paraMoeda: string) => {
     switch (paraMoeda) {
-
-      case "nd":
-        return "Nenhuma moeda inserida"
-
       case "USD":
-        return "Dólar Americano"
+        return "Dólares Americanos"
 
       case "EUR":
-        return "Euro"
+        return "Euros"
 
       case "BRL":
-        return "Real Brasileiro"
-
-      case "IENE":
-        return "Iene Japonês"
+        return "Reais Brasileiros"
 
       default:
         return "";
     }
     }
 
-    const simboloMoeda = (paraMoeda: string) => {
-      switch (paraMoeda) {
-  
-        case "nd":
-          return "Nenhuma moeda inserida"
-  
-        case "USD":
-          return "U"
-  
-        case "EUR":
-          return "Euro"
-  
-        case "BRL":
-          return "Real Brasileiro"
-  
-        case "IENE":
-          return "Iene Japonês"
-  
-        default:
-          return "";
-      }
-      }
-
     return(
-      <p className="text-2xl">{valorConv} {nomeMoeda(paraMoeda)}</p>
+      <p className="text-2xl">{valorConv.toFixed(2)} {nomeMoeda(paraMoeda)}</p>
       // <p className="text-2xl">{valorConv} {nomeMoeda(paraMoeda)}</p>
     )
 
   };
+
+export function MostrarMoeda({valor, deMoeda}: {
+  valor: number,
+  deMoeda: string,
+}) {
+
+  const nomeMoeda = (deMoeda: string) => {
+    switch (deMoeda) {
+      case "USD":
+        return "Dólares Americanos"
+
+      case "EUR":
+        return "Euros"
+
+      case "BRL":
+        return "Reais Brasileiros"
+
+      default:
+        return "";
+    }
+  }
+
+  return(
+    <p className="text-2xl">${valor} {nomeMoeda(deMoeda)} igual a</p>
+  )
+}
