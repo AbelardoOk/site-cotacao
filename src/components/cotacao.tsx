@@ -44,15 +44,6 @@ useEffect(() => {
             break;
         }
 
-        // const response = await axios.get(`https://api.exchangerate-api.com/v4/latest/${deMoeda}`);
-        // const exchangeRate = response.data.rates;
-
-        // if(deMoeda == 'USD' || deMoeda == "EUR") {document.title = deMoeda}
-        // if(paraMoeda == 'USD' || paraMoeda == "EUR") {document.title = paraMoeda}
-
-        // const convercao = valor * (exchangeRate[paraMoeda] / exchangeRate[deMoeda])
-        // setValorConv(convercao)
-
       } catch (error) {
         console.error('Erro ao converter moedas: ', error);
         return null;
@@ -86,11 +77,12 @@ useEffect(() => {
 
     return(
       <p className="text-2xl">{valorConv.toFixed(2)} {nomeMoeda(paraMoeda)}</p>
-      // <p className="text-2xl">{valorConv} {nomeMoeda(paraMoeda)}</p>
     )
 
   };
 
+
+  
 export function MostrarMoeda({valor, deMoeda}: {
   valor: number,
   deMoeda: string,
@@ -113,6 +105,6 @@ export function MostrarMoeda({valor, deMoeda}: {
   }
 
   return(
-    <p className="text-2xl">${valor} {nomeMoeda(deMoeda)} igual a</p>
+    <p className="text-2xl">{valor} {nomeMoeda(deMoeda)} igual a</p>
   )
 }
